@@ -85,6 +85,7 @@ const role = [2, "author"]; // => const role: (string | number)[]
 // !!! WE CAN STILL role2.push("admin") !!!
 let role2;
 // ===== ENUM =====
+//  SET OF NAMED CONSTANTS
 // IDENTIFIERS, GLOBAL CONSTANTS THAT WE WANT TO REPRESENT AS NUMBERS ASSIGNING WITH A HUMAN READABLE LABEL (AUTOMATICALLY ENUMARATED GLOBAL CONSTANT IDENTIFIERS)
 //  USE THEM IN TYPE ASSIGNMENTS, IF STATEMENTS
 // WITH JS:
@@ -223,7 +224,7 @@ const printResult2 = (num) => {
 };
 printResult2(add2(3, 8)); // 11
 console.log(printResult2(add2(3, 8))); // !!! undefined !!! BECAUSE printResult2 RETURNS undefined !!!
-// IN TS FUNCTIONS ARE NOT ALLOWED TO RETURN undefided, TECHNICALLY, THEY DO, SEE ABOVE printResult2
+// IN TS, FUNCTIONS ARE NOT ALLOWED TO RETURN undefided, TECHNICALLY, THEY DO, SEE ABOVE printResult2
 // WITH void WE MAKE IT CLEAR THAT OUR FUNCTION DOES NOT HAVE A RETURN STATEMENT
 // IF WE USED undefined, TS WOULD EXPECT TO USE A RETURN STATEMENT WITHOUT RETURNING A VALUE:
 // const printResult3 = (num: number): undefined => { 
@@ -236,7 +237,7 @@ let combineValues;
 combineValues = add2; // STORE FUNCTION IN VARIABLE
 console.log(combineValues(8, 9)); // EXECUTE VARIABLE AS FUNCTION
 combineValues = 5; // combineValues IS TYPE: any, 
-console.log(combineValues(8, 9)); // WE CAN COMPILE BUT WILL GET AN ERROR AT RUNTIME !!!
+// console.log(combineValues(8, 9));   // WE CAN COMPILE BUT WILL GET AN ERROR AT RUNTIME !!!
 // NOW, IT CAN ONLY BE A FUNCTION, BUT ANY FUNCTION WHICH IS STILL NOT IDEAL:
 let combineValues2;
 combineValues2 = printResult2;
@@ -244,5 +245,38 @@ console.log(combineValues2(8, 9)); // WE STORED THE WRONG FUNCTION SO WE WILL GE
 // BE MORE PRECISE ABOUT HOW THE FUNCTION SHOULD LOOK LIKE:
 let combineValues3;
 combineValues3 = add2; // OK 
-combineValues3 = printResult; // ERROR: printResult DOES NOT MATCH PRE-DEFINED f DESCRIPTION
-//  2 06 55
+// combineValues3 = printResult;   // ERROR: printResult DOES NOT MATCH PRE-DEFINED f DESCRIPTION
+// CALLBACKS
+// CALLBACK WILL ACCEPT ONE ARGUMENT WHICH IS A number
+const addAndHandle = (n1, n2, callBack) => {
+    const result = n1 + n2;
+    callBack(result);
+};
+// TS WILL KNOW THAT result WILL BE A number AS WE DEFINED IT ABOVE FOR THE CALLBACK
+addAndHandle(10, 20, (result) => {
+    console.log(result);
+    // return result; // WE CAN STILL RETURN BUT WE ARE NOT USING THE RETURN VALUE
+});
+// ===== UNKNOWN =====
+// MORE RESTRICTED THAN any, AND BETTER CHOICE IF WE CAN'T TELL IN ADVANCE WHAT TYPE WILL BE STORED IN IT
+// ASSIGNING unknown VALUE TO A FIXED TYPE (string)
+let userInput; // NOT GUARANTEED TO BE A STRING IN THIS CASE
+// let userInput: any;  //  MOST FLEXIBLE, DISABLES ALL TYPE CHECKS, NO ERROR
+let userName;
+userInput = 5;
+userInput = "max";
+// userName = userInput;   // ERROR: Type 'unknown' is not assignable to type 'string'
+// WITH unknown FIRST WE HAVE TO CHECK THE TYPE OF THE VALUE CURRENTLY STORED IN userInput BEFORE WE CAN ASSIGN IT TO A VARIABLE THAT CAN ONLY BE A string:
+if (typeof userInput === "string") {
+    userName = userInput;
+}
+// ===== NEVER =====
+// ANOTHER TYPE A FUNCTION CAN RETURN
+// UTILITY FUNCTION THAT GENERATES ERROR OBJECT OR AN INFINITE LOOP
+// const generateError: (message: string, code: number) => never
+// IT IS RETURNING NOT JUST void, IT RETURNS never, NEVER PRODUCING A RETURN VALUE
+const generateError = (message, code) => {
+    throw { message: message, errorCode: code };
+};
+generateError("An error occurred", 500);
+// 2 34
