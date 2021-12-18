@@ -1,4 +1,83 @@
 "use strict";
+// https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia
+// BASIC TYPES
+let id = 5;
+let company = "Traversy Media";
+let isPublished = true;
+let x = "Hello";
+let ids = [1, 2, 3];
+let arr = [1, true, "hello"];
+// TUPLE
+let personArr = [1, "john", true];
+// TUPLE ARRAY
+let employee;
+employee = [[1, "brad"], [2, "dave"], [3, "steve"]];
+// UNION
+let pid;
+pid = 33;
+pid = "33";
+// ENUM
+// SET OF NAMED CONSTANTS (NUMERIC BY DEFAULT OR STRING) 
+var direction1;
+(function (direction1) {
+    direction1[direction1["up"] = 1] = "up";
+    direction1[direction1["down"] = 2] = "down";
+    direction1[direction1["left"] = 3] = "left";
+    direction1[direction1["right"] = 4] = "right";
+})(direction1 || (direction1 = {}));
+// IF WE CHANGE up = 1, THEN INDICES WILL START ON 1, 2, 3 ETC..
+console.log(direction1.up); // 0
+var direction2;
+(function (direction2) {
+    direction2["up"] = "up";
+    direction2["down"] = "down";
+    direction2["left"] = "left";
+    direction2["right"] = "rigth";
+})(direction2 || (direction2 = {}));
+console.log(direction2.left); // left
+// OBJECTS
+// STEP 1:
+const user = {
+    id: 1,
+    name: "alex"
+};
+const user2 = {
+    id: 1,
+    name: "eddie"
+};
+// TYPE ASSERTION
+// EXPLICITELY TELLING THE COMPILER THAT WE WANT TO TREAT AN ENTITY AS A DIFFERENT TYPE
+// cid ORIGINALLY TYPE: any BUT WE'RE SETTIN customerId TO THAT AND WE'RE ASSERTING THAT WE WANT IT TO BE TYPE: number
+let cid = 1;
+// SYNTAX 1 WITH ANGLED BRACKETS:
+let customerId = cid; // NOW customerId SHOULD BE A number
+// customerId = true;  //Type 'boolean' is not assignable to type 'number'
+// SYNTAX 2:
+let customerId2 = cid;
+// FUNCTIONS
+// FUNCTION DECLARATION
+function addNum(x, y) {
+    return x + y;
+}
+const addition = (x, y) => {
+    return x + y;
+};
+console.log(addition(1, 2));
+// console.log(addition(1, "2"));  // Argument of type 'string' is not assignable to parameter of type 'number' !!!
+// IF WE DON'T HAVE A RETURN VALUE, USE void AS RETURN VALUE:
+const log = (message) => {
+    console.log(message);
+};
+const user3 = {
+    id: 1,
+    name: "eddie"
+};
+const addition2 = (x, y) => x + y;
+const substraction = (x, y) => x - y;
+// CLASSES 34 04
+// ==================================================================
+// ==================================================================
+// ==================================================================
 // let id: number = 5;
 // console.log("id: ", id);
 // ==================== TYPES ===================== 

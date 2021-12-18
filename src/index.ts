@@ -1,3 +1,175 @@
+// https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia
+
+// BASIC TYPES
+let id: number = 5;
+let company: string = "Traversy Media";
+let isPublished: boolean = true;
+let x: any = "Hello";
+
+let ids: number[] = [1, 2, 3];
+let arr: any[] = [1, true, "hello"];
+
+
+// TUPLE
+let personArr: [number, string, boolean] = [1, "john", true];
+// TUPLE ARRAY
+let employee: [number, string][];
+employee = [[1, "brad"], [2, "dave"], [3, "steve"]];
+
+
+// UNION
+let pid: string | number;
+pid = 33;
+pid = "33";
+
+
+// ENUM
+
+// SET OF NAMED CONSTANTS (NUMERIC BY DEFAULT OR STRING) 
+
+enum direction1 {
+    up = 1,             // DEFAULT VALUE: 0 AND SO ON !!!
+    down,
+    left,
+    right
+}
+
+// IF WE CHANGE up = 1, THEN INDICES WILL START ON 1, 2, 3 ETC..
+
+console.log(direction1.up); // 0
+
+enum direction2 {
+    up = "up",
+    down = "down",
+    left = "left",
+    right = "rigth"
+}
+
+console.log(direction2.left)  // left
+
+
+
+// OBJECTS
+
+// STEP 1:
+const user: {
+    id: number,
+    name: string
+} = {
+    id: 1,
+    name: "alex"
+}
+
+// STEP 2: SET UP A type
+type User = {
+    id: number,
+    name: string
+}
+
+const user2: User = {
+    id: 1,
+    name: "eddie"
+}
+
+// TYPE ASSERTION
+
+// EXPLICITELY TELLING THE COMPILER THAT WE WANT TO TREAT AN ENTITY AS A DIFFERENT TYPE
+// cid ORIGINALLY TYPE: any BUT WE'RE SETTIN customerId TO THAT AND WE'RE ASSERTING THAT WE WANT IT TO BE TYPE: number
+
+let cid: any = 1;
+
+// SYNTAX 1 WITH ANGLED BRACKETS:
+let customerId = <number>cid;   // NOW customerId SHOULD BE A number
+// customerId = true;  //Type 'boolean' is not assignable to type 'number'
+
+// SYNTAX 2:
+let customerId2 = cid as number;
+
+
+
+// FUNCTIONS
+
+// FUNCTION DECLARATION
+function addNum(x: number, y: number): number {
+    return x + y
+}
+
+
+const addition = (x: number, y: number): number => {
+    return x + y;
+}
+
+console.log(addition(1, 2));
+// console.log(addition(1, "2"));  // Argument of type 'string' is not assignable to parameter of type 'number' !!!
+
+// IF WE DON'T HAVE A RETURN VALUE, USE void AS RETURN VALUE:
+const log = (message: string | number): void => {
+    console.log(message);
+}
+
+// log("hello");   // STRING: OK
+// log(500);       // NUMBER: OK
+// log(true);      // ANYTHIG ELSE: ERROR !!!
+
+
+// INTERFACES
+
+// CUSTOM TYPE TO DESCRIBE AN  OBJECT OR FUNCTION, SIMILAR TO type, BUT WE CAN'T USE PRIMITIVES OR UNIONS !!!
+
+// WITH OBJECT:
+interface UserInterface {
+    readonly id: number,    // READ ONLY PROPERTY
+    name: string,
+    age?: number            // OPTIONAL PROPERTY
+
+}
+
+const user3: UserInterface = {
+    id: 1,
+    name: "eddie"
+}
+
+// WITH FUNCTION:
+interface MathFunc {
+    (x: number, y: number): number
+}
+
+const addition2: MathFunc = (x: number, y: number): number => x + y;
+const substraction: MathFunc = (x: number, y: number): number => x - y;
+
+
+
+// CLASSES 34 04
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ==================================================================
+// ==================================================================
+// ==================================================================
+
+
+
 // let id: number = 5;
 // console.log("id: ", id);
 
