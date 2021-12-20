@@ -1,4 +1,9 @@
+// ==================================================================
+// TypeScript Crash Course 2021
+// ==================================================================
 // https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia
+// ==================================================================
+
 
 //  ADDITIONAL FEATURES TO JS INCL. STATIC TYPES
 //  USING TYPES IS COMPLETELY OPTIONAL
@@ -82,16 +87,19 @@ console.log(direction2.left)  // left
 
 // ===== OBJECTS =====
 
+
 // STEP 1:
-const user: {
-    id: number,
-    name: string
+
+// ADD TYPES TO EACH VALUE:
+const user: {           // DEFINE AN OBJECT TYPE, THAT
+    id: number,         // EXPECTS AN id, WHICH SHOULD BE A NUMBER
+    name: string        // AND A name, THAT SHOULD BE A STRING
 } = {
     id: 1,
     name: "alex"
 }
 
-// STEP 2: SET UP A type
+// STEP 2: REFACTOR AND SET UP A type:
 type User = {
     id: number,
     name: string
@@ -120,12 +128,14 @@ let customerId2 = cid as number;
 
 // ===== FUNCTIONS =====
 
-// FUNCTION DECLARATION
+// EACH ARGUMENT WE PASS IN HAS TO BE A CERTAIN TYPE AS WELL AS THE RETURN VALUE
+
+// FUNCTION DECLARATION:
 function addNum(x: number, y: number): number {
     return x + y
 }
 
-
+// ARROW:
 const addition = (x: number, y: number): number => {
     return x + y;
 }
@@ -143,11 +153,21 @@ const log = (message: string | number): void => {
 // log(true);      // ANYTHIG ELSE: ERROR !!!
 
 
+
 // ===== INTERFACES =====
 
 // MAP OUT HOW OUR FUNCTIONS, OBJECTS OR CLASSES ARE SUPPOSED TO LOOK LIKE
 
-// CUSTOM TYPE TO DESCRIBE AN  OBJECT OR FUNCTION, SIMILAR TO type, BUT WE CAN'T USE PRIMITIVES OR UNIONS !!!
+// CUSTOM TYPE TO DESCRIBE AN OBJECT OR FUNCTION, SIMILAR TO type, BUT WE CAN'T USE PRIMITIVES OR UNIONS !!!
+
+// type:
+// type Point = number | string;
+// let p1: Point = 345     // NUMBER OK
+// p1 = "hello";           // STRING OK
+//  interface:
+// interface Point2 = number | string; // ERROR string' only refers to a type, but is being used as a value here
+
+
 
 // WITH OBJECT:
 interface UserInterface {
@@ -157,16 +177,20 @@ interface UserInterface {
 
 }
 
-const user3: UserInterface = {
+const user3: UserInterface = {      // WILL WORK WITHOUT THE OPTIONAL age? 
     id: 1,
     name: "eddie"
 }
+
+// user3.id = 987;     // Cannot assign to 'id' because it is a read-only property
+
 
 // WITH FUNCTION:
 interface MathFunc {
     (x: number, y: number): number
 }
 
+// THESE 2 FUNCTIONS BOTH USE THE SAME INTERFACE:
 const addition2: MathFunc = (x: number, y: number): number => x + y;
 const substraction: MathFunc = (x: number, y: number): number => x - y;
 
@@ -174,15 +198,17 @@ const substraction: MathFunc = (x: number, y: number): number => x - y;
 
 // ===== CLASSES =====
 
+// USED TO CREATE OBJECTS (INSTANCES OF THEIR CLASS)
+
 class Person {
     id: number
     name: string
 
-    constructor(id: number, name: string) {
+    constructor(id: number, name: string) {     // CONSTR RUNS EVERY TIME AN OBJ IS INSTANTIATED FROM CLASS
         console.log("hello from constructor");
-        this.id = id;
-        this.name = name;
-        console.log(this.id, this.name);
+        this.id = id;                           //  TAKE THESE PARAMETERS THAT ARE PASSED IN,
+        this.name = name;                       //  AND ASSIGN THEM TO CLASS PROPERTIES (id, name)
+        console.log(this.id, this.name);        // this = CURRENT INSTANCE (CLASS WE'RE IN)
     }
 
     register() {
@@ -190,10 +216,15 @@ class Person {
     }
 }
 
+//  CREATE NEW Person{} OBJECTST FROM CLASS
 const brad = new Person(777, "brad traversy");
 const mike = new Person(666, "michael anthony");
 
 console.log(brad, mike);
+// Person { id: 777, name: 'brad traversy' } Person { id: 666, name: 'michael anthony' }
+
+
+
 
 // ACCESS (DATA) MODIFIERS: PUBLIC (DEFAULT), PRIVATE AND PROTECTED
 
@@ -220,7 +251,7 @@ interface PersonInterface {
 }
 
 class Person2 implements PersonInterface {
-    id: number
+    public id: number                           // CAN LEAVE OUT public AS IT IS DEFAULT !!!
     name: string
 
     constructor(id: number, name: string) {
@@ -231,7 +262,7 @@ class Person2 implements PersonInterface {
     }
 
     register() {
-        return `${this.name} is now registered`
+        return `${this.name} is now registered`     // SHOULD RETURN string AS DEFINED IN PersonInterface
     }
 }
 
@@ -242,17 +273,19 @@ class Person2 implements PersonInterface {
 
 // SUBCLASS OF Person2
 class Employee extends Person2 {
+
+    //  ADDITIONAL PROPERTY:
     position: string
 
     constructor(id: number, name: string, position: string) {
-        super(id, name);
-        this.position = position;
+        super(id, name);    // (this.id = id; this.name = name;)    THESE 2 DON'T HAVE TO BE INITIALISED
+        this.position = position;   // NEW PROPERTY HAS TO BE INITIALISED
         console.log(this.id, this.name, this.position);
     }
 }
 
 const employee2 = new Employee(888, "sly stallone", "director");
-console.log(employee2.register());
+console.log(employee2.register());  // sly stallone is now registered
 
 
 
@@ -261,50 +294,39 @@ console.log(employee2.register());
 
 // USED TO BUILD REUSABLE COMPONENTS
 
-const getArray = (items: any[]): any[] => {
-    return new Array().concat(items);
+const getArray = (items: any[]): any[] => {     // ACCEPT AN ARRAY OF ANY TYPE
+    return new Array().concat(items);           // RETURN AN ARRAY OF ANY TYPE
 }
 
+//  WE WANT TO USE getArray TO CREATE THESE TWO DIFFERENT ARRAYS
 let numArray = getArray([1, 2, 3, 4]);
 let stringArr = getArray(["kip", "reb", "paul"]);
 
-numArray.push("rod");   // OK
-stringArr.push(659);    // OK
+// !!! BUT: WE CAN PUSH NON MATCHING TYPES TO THESE ARRAYS WHICH WE DON'T WANT !!!
+numArray.push(456);     // OK
+numArray.push("rod");   // OK       !!! BUG !!!
+stringArr.push("659");  // OK
+stringArr.push(659);    // OK       !!! BUG !!!
 
 
 
 //
 
-const getArray2 = <T>(items: T[]): T[] => {
+const getArray2 = <T>(items: T[]): T[] => {     // <T> PLACEHOLDER OF THE TYPE (TO REPLACE any)
     return new Array().concat(items);
 }
 
-let numArray2 = getArray2<number>([1, 2, 3, 4]);
-let stringArr2 = getArray2<string>(["kip", "reb", "paul"]);
+let numArray2 = getArray2<number>([1, 2, 3, 4]);                // DEFINE TYPE  <number>
+let stringArr2 = getArray2<string>(["kip", "reb", "paul"]);     // DEFINE TYPE  <string>
 
-// numArray2.push("six");  // ERROR
+// numArray2.push("six");  // ERROR, BUG CAUGHT
 numArray2.push(6);
 
-// stringArr2.push(987);   // ERROR
+// stringArr2.push(987);   // ERROR, BUG CAUGHT
 stringArr2.push("alice");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 47:30 LAST MODULE: TS WITH REACT
 
 
 
@@ -312,7 +334,9 @@ stringArr2.push("alice");
 
 
 // ==================================================================
+// TypeScript Course for Beginners 2021 - Learn TypeScript from Scratch!
 // ==================================================================
+// https://www.youtube.com/watch?v=BwuLxPH8IDs&t=3930s&ab_channel=Academind
 // ==================================================================
 
 

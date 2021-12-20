@@ -1,5 +1,9 @@
 "use strict";
+// ==================================================================
+// TypeScript Crash Course 2021
+// ==================================================================
 // https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia
+// ==================================================================
 //  ADDITIONAL FEATURES TO JS INCL. STATIC TYPES
 //  USING TYPES IS COMPLETELY OPTIONAL
 //  COMPILES DOWN TO REGULAR JS
@@ -17,20 +21,20 @@
 //  MANY TOOLS INCLUDE TS COMPILATION BY DEFAULT
 //  MOST IDE'S HAVE GREAT SUPPORT FOR TS
 //  THE tsconfig.json FILE IS USED TO CONGIGURE HOW TS WORKS
-// BASIC TYPES
+// =============== BASIC TYPES ===============
 let id = 5;
 let company = "Traversy Media";
 let isPublished = true;
 let x = "Hello";
 let ids = [1, 2, 3]; // ARRAY THAT CAN ONLY CONTAIN NUMBERS
 let arr = [1, true, "hello"]; // ARRAY CAN HOLD VALUES OF ANY TYPE
-//  TUPLE
+//  ===== TUPLE =====
 //  SPECIFY THE EXACT TYPES AT EVERY INDEX INSIDE OF THE ARRAY
 let personArr = [1, "john", true];
 //  TUPLE ARRAY (ARRAY OF TUPLES)
 let employee;
 employee = [[1, "brad"], [2, "dave"], [3, "steve"]];
-//  UNION
+//  ===== UNION =====
 //  VARIABLE TO HOLD MORE THAN ONE TYPE
 let pid = 33;
 // pid = 33;
@@ -39,7 +43,7 @@ pid = undefined;
 pid = null;
 pid = true;
 pid = Symbol('foo');
-// ENUM (ENUMERATED)
+// ===== ENUM (ENUMERATED) =====
 // SET OF NAMED CONSTANTS (NUMERIC BY DEFAULT OR STRING) 
 var direction1;
 (function (direction1) {
@@ -58,8 +62,9 @@ var direction2;
     direction2["right"] = "rigth";
 })(direction2 || (direction2 = {}));
 console.log(direction2.left); // left
-// OBJECTS
+// ===== OBJECTS =====
 // STEP 1:
+// ADD TYPES TO EACH VALUE:
 const user = {
     id: 1,
     name: "alex"
@@ -68,7 +73,7 @@ const user2 = {
     id: 1,
     name: "eddie"
 };
-// TYPE ASSERTION
+// ===== TYPE ASSERTION =====
 // EXPLICITELY TELLING THE COMPILER THAT WE WANT TO TREAT AN ENTITY AS A DIFFERENT TYPE
 // cid ORIGINALLY TYPE: any BUT WE'RE SETTIN customerId TO THAT AND WE'RE ASSERTING THAT WE WANT IT TO BE TYPE: number
 let cid = 1;
@@ -77,11 +82,13 @@ let customerId = cid; // NOW customerId SHOULD BE A number
 // customerId = true;  //Type 'boolean' is not assignable to type 'number'
 // SYNTAX 2:
 let customerId2 = cid;
-// FUNCTIONS
-// FUNCTION DECLARATION
+// ===== FUNCTIONS =====
+// EACH ARGUMENT WE PASS IN HAS TO BE A CERTAIN TYPE AS WELL AS THE RETURN VALUE
+// FUNCTION DECLARATION:
 function addNum(x, y) {
     return x + y;
 }
+// ARROW:
 const addition = (x, y) => {
     return x + y;
 };
@@ -95,23 +102,27 @@ const user3 = {
     id: 1,
     name: "eddie"
 };
+// THESE 2 FUNCTIONS BOTH USE THE SAME INTERFACE:
 const addition2 = (x, y) => x + y;
 const substraction = (x, y) => x - y;
-// CLASSES 
+// ===== CLASSES =====
+// USED TO CREATE OBJECTS (INSTANCES OF THEIR CLASS)
 class Person {
     constructor(id, name) {
         console.log("hello from constructor");
-        this.id = id;
-        this.name = name;
-        console.log(this.id, this.name);
+        this.id = id; //  TAKE THESE PARAMETERS THAT ARE PASSED IN,
+        this.name = name; //  AND ASSIGN THEM TO CLASS PROPERTIES (id, name)
+        console.log(this.id, this.name); // this = CURRENT INSTANCE (CLASS WE'RE IN)
     }
     register() {
         return `${this.name} is now registered`;
     }
 }
+//  CREATE NEW Person{} OBJECTST FROM CLASS
 const brad = new Person(777, "brad traversy");
 const mike = new Person(666, "michael anthony");
 console.log(brad, mike);
+// Person { id: 777, name: 'brad traversy' } Person { id: 666, name: 'michael anthony' }
 // ACCESS (DATA) MODIFIERS: PUBLIC (DEFAULT), PRIVATE AND PROTECTED
 // 1. PUBLIC PROPERTY: (CAN LEAVE IT OUT AS IT IS DEFAULT)
 // public id: number
@@ -129,7 +140,7 @@ class Person2 {
         console.log(this.id, this.name);
     }
     register() {
-        return `${this.name} is now registered`;
+        return `${this.name} is now registered`; // SHOULD RETURN string AS DEFINED IN PersonInterface
     }
 }
 // EXTENDING CLASS TO SUBCLASS
@@ -137,34 +148,41 @@ class Person2 {
 // SUBCLASS OF Person2
 class Employee extends Person2 {
     constructor(id, name, position) {
-        super(id, name);
-        this.position = position;
+        super(id, name); // (this.id = id; this.name = name;)    THESE 2 DON'T HAVE TO BE INITIALISED
+        this.position = position; // NEW PROPERTY HAS TO BE INITIALISED
         console.log(this.id, this.name, this.position);
     }
 }
 const employee2 = new Employee(888, "sly stallone", "director");
-console.log(employee2.register());
+console.log(employee2.register()); // sly stallone is now registered
 // GENERICS
 // USED TO BUILD REUSABLE COMPONENTS
 const getArray = (items) => {
-    return new Array().concat(items);
+    return new Array().concat(items); // RETURN AN ARRAY OF ANY TYPE
 };
+//  WE WANT TO USE getArray TO CREATE THESE TWO DIFFERENT ARRAYS
 let numArray = getArray([1, 2, 3, 4]);
 let stringArr = getArray(["kip", "reb", "paul"]);
-numArray.push("rod"); // OK
-stringArr.push(659); // OK
+// !!! BUT: WE CAN PUSH NON MATCHING TYPES TO THESE ARRAYS WHICH WE DON'T WANT !!!
+numArray.push(456); // OK
+numArray.push("rod"); // OK       !!! BUG !!!
+stringArr.push("659"); // OK
+stringArr.push(659); // OK       !!! BUG !!!
 //
 const getArray2 = (items) => {
     return new Array().concat(items);
 };
-let numArray2 = getArray2([1, 2, 3, 4]);
-let stringArr2 = getArray2(["kip", "reb", "paul"]);
-// numArray2.push("six");  // ERROR
+let numArray2 = getArray2([1, 2, 3, 4]); // DEFINE TYPE  <number>
+let stringArr2 = getArray2(["kip", "reb", "paul"]); // DEFINE TYPE  <string>
+// numArray2.push("six");  // ERROR, BUG CAUGHT
 numArray2.push(6);
-// stringArr2.push(987);   // ERROR
+// stringArr2.push(987);   // ERROR, BUG CAUGHT
 stringArr2.push("alice");
+// 47:30 LAST MODULE: TS WITH REACT
 // ==================================================================
+// TypeScript Course for Beginners 2021 - Learn TypeScript from Scratch!
 // ==================================================================
+// https://www.youtube.com/watch?v=BwuLxPH8IDs&t=3930s&ab_channel=Academind
 // ==================================================================
 // let id: number = 5;
 // console.log("id: ", id);
