@@ -172,7 +172,7 @@ const substraction: MathFunc = (x: number, y: number): number => x - y;
 
 
 
-// CLASSES 
+// ===== CLASSES =====
 
 class Person {
     id: number
@@ -244,7 +244,7 @@ class Person2 implements PersonInterface {
 class Employee extends Person2 {
     position: string
 
-    constructor (id: number, name: string, position: string) {
+    constructor(id: number, name: string, position: string) {
         super(id, name);
         this.position = position;
         console.log(this.id, this.name, this.position);
