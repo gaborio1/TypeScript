@@ -74,7 +74,72 @@ const user3 = {
 };
 const addition2 = (x, y) => x + y;
 const substraction = (x, y) => x - y;
-// CLASSES 34 04
+// CLASSES 
+class Person {
+    constructor(id, name) {
+        console.log("hello from constructor");
+        this.id = id;
+        this.name = name;
+        console.log(this.id, this.name);
+    }
+    register() {
+        return `${this.name} is now registered`;
+    }
+}
+const brad = new Person(777, "brad traversy");
+const mike = new Person(666, "michael anthony");
+console.log(brad, mike);
+// ACCESS (DATA) MODIFIERS: PUBLIC (DEFAULT), PRIVATE AND PROTECTED
+// 1. PUBLIC PROPERTY: (CAN LEAVE IT OUT AS IT IS DEFAULT)
+// public id: number
+// 2. PRIVATE : CAN ONLY ACCESS FROM WITHIN THE CLASS
+// private id: number
+// CAN'T EVEN CONSOLE.LOG IT: console.log(brad.id) => ERROR
+// 3. PROTECTED: ONLY ACCESS IT WITHIN CLASS OR ANY CLASS THAT IS EXTENDED FROM THIS CLASS
+//protected id: number
+console.log(brad.register());
+class Person2 {
+    constructor(id, name) {
+        console.log("hello from constructor");
+        this.id = id;
+        this.name = name;
+        console.log(this.id, this.name);
+    }
+    register() {
+        return `${this.name} is now registered`;
+    }
+}
+// EXTENDING CLASS TO SUBCLASS
+// CREATA AN Employee CLASS, THAT ALSO HAS THE PROPERTIES OF Person (id, name), AND A METHOD OF register BUT WE WANT TO ADD ANOTHER PROPERTY
+// SUBCLASS OF Person2
+class Employee extends Person2 {
+    constructor(id, name, position) {
+        super(id, name);
+        this.position = position;
+        console.log(this.id, this.name, this.position);
+    }
+}
+const employee2 = new Employee(888, "sly stallone", "director");
+console.log(employee2.register());
+// GENERICS
+// USED TO BUILD REUSABLE COMPONENTS
+const getArray = (items) => {
+    return new Array().concat(items);
+};
+let numArray = getArray([1, 2, 3, 4]);
+let stringArr = getArray(["kip", "reb", "paul"]);
+numArray.push("rod"); // OK
+stringArr.push(659); // OK
+//
+const getArray2 = (items) => {
+    return new Array().concat(items);
+};
+let numArray2 = getArray2([1, 2, 3, 4]);
+let stringArr2 = getArray2(["kip", "reb", "paul"]);
+// numArray2.push("six");  // ERROR
+numArray2.push(6);
+// stringArr2.push(987);   // ERROR
+stringArr2.push("alice");
 // ==================================================================
 // ==================================================================
 // ==================================================================
