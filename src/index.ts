@@ -1,29 +1,60 @@
 // https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia
 
-// BASIC TYPES
+//  ADDITIONAL FEATURES TO JS INCL. STATIC TYPES
+//  USING TYPES IS COMPLETELY OPTIONAL
+//  COMPILES DOWN TO REGULAR JS
+//  FRONT END OR BACKEND WITH NODE.JS
+//  INCLUDES  MOST FEATURES FROM ES6, ES7
+//  TYPES FROM THIRD PARTY LIBRARIES CAN BE ADDED WITH TYPE DEFINITIONS
+
+//  DYNAMICALLY TYPED: TYPES ARE ASSOCIATED WITH RUN-TIME VALUES AND NOT NAMED EXPLICITLY IN CODE
+//  JS, PYTHON, RUBY, PHP
+//  STATICALLY TYPED: EXPLICITELY ASSIGN TYPES TO VARIABLES, FUNC. PARAMETERS, RETURN VALUES, ETC
+//  JAVA, C, C++, RUST, GO
+
+//  COMPILING TS:
+
+// .ts and .tsx (JSX) EXTENSIONS
+// TSC IS USED TO COMPILE TS DOWN TO JS
+// CAN WATCH FILES AND REPORT ERRORS AT COMPILE TIME
+//  MANY TOOLS INCLUDE TS COMPILATION BY DEFAULT
+//  MOST IDE'S HAVE GREAT SUPPORT FOR TS
+//  THE tsconfig.json FILE IS USED TO CONGIGURE HOW TS WORKS
+
+// =============== BASIC TYPES ===============
+
 let id: number = 5;
 let company: string = "Traversy Media";
 let isPublished: boolean = true;
 let x: any = "Hello";
 
-let ids: number[] = [1, 2, 3];
-let arr: any[] = [1, true, "hello"];
+let ids: number[] = [1, 2, 3];          // ARRAY THAT CAN ONLY CONTAIN NUMBERS
+let arr: any[] = [1, true, "hello"];    // ARRAY CAN HOLD VALUES OF ANY TYPE
 
 
-// TUPLE
+//  ===== TUPLE =====
+
+//  SPECIFY THE EXACT TYPES AT EVERY INDEX INSIDE OF THE ARRAY
 let personArr: [number, string, boolean] = [1, "john", true];
-// TUPLE ARRAY
+
+//  TUPLE ARRAY (ARRAY OF TUPLES)
 let employee: [number, string][];
 employee = [[1, "brad"], [2, "dave"], [3, "steve"]];
 
 
-// UNION
-let pid: string | number;
-pid = 33;
+//  ===== UNION =====
+
+//  VARIABLE TO HOLD MORE THAN ONE TYPE
+let pid: string | number | undefined | null | boolean | symbol = 33;
+// pid = 33;
 pid = "33";
+pid = undefined;
+pid = null;
+pid = true;
+pid = Symbol('foo');
 
 
-// ENUM
+// ===== ENUM (ENUMERATED) =====
 
 // SET OF NAMED CONSTANTS (NUMERIC BY DEFAULT OR STRING) 
 
@@ -49,7 +80,7 @@ console.log(direction2.left)  // left
 
 
 
-// OBJECTS
+// ===== OBJECTS =====
 
 // STEP 1:
 const user: {
@@ -71,7 +102,7 @@ const user2: User = {
     name: "eddie"
 }
 
-// TYPE ASSERTION
+// ===== TYPE ASSERTION =====
 
 // EXPLICITELY TELLING THE COMPILER THAT WE WANT TO TREAT AN ENTITY AS A DIFFERENT TYPE
 // cid ORIGINALLY TYPE: any BUT WE'RE SETTIN customerId TO THAT AND WE'RE ASSERTING THAT WE WANT IT TO BE TYPE: number
@@ -87,7 +118,7 @@ let customerId2 = cid as number;
 
 
 
-// FUNCTIONS
+// ===== FUNCTIONS =====
 
 // FUNCTION DECLARATION
 function addNum(x: number, y: number): number {
@@ -112,7 +143,7 @@ const log = (message: string | number): void => {
 // log(true);      // ANYTHIG ELSE: ERROR !!!
 
 
-// INTERFACES
+// ===== INTERFACES =====
 
 // CUSTOM TYPE TO DESCRIBE AN  OBJECT OR FUNCTION, SIMILAR TO type, BUT WE CAN'T USE PRIMITIVES OR UNIONS !!!
 

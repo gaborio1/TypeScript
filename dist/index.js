@@ -1,22 +1,45 @@
 "use strict";
 // https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia
+//  ADDITIONAL FEATURES TO JS INCL. STATIC TYPES
+//  USING TYPES IS COMPLETELY OPTIONAL
+//  COMPILES DOWN TO REGULAR JS
+//  FRONT END OR BACKEND WITH NODE.JS
+//  INCLUDES  MOST FEATURES FROM ES6, ES7
+//  TYPES FROM THIRD PARTY LIBRARIES CAN BE ADDED WITH TYPE DEFINITIONS
+//  DYNAMICALLY TYPED: TYPES ARE ASSOCIATED WITH RUN-TIME VALUES AND NOT NAMED EXPLICITLY IN CODE
+//  JS, PYTHON, RUBY, PHP
+//  STATICALLY TYPED: EXPLICITELY ASSIGN TYPES TO VARIABLES, FUNC. PARAMETERS, RETURN VALUES, ETC
+//  JAVA, C, C++, RUST, GO
+//  COMPILING TS:
+// .ts and .tsx (JSX) EXTENSIONS
+// TSC IS USED TO COMPILE TS DOWN TO JS
+// CAN WATCH FILES AND REPORT ERRORS AT COMPILE TIME
+//  MANY TOOLS INCLUDE TS COMPILATION BY DEFAULT
+//  MOST IDE'S HAVE GREAT SUPPORT FOR TS
+//  THE tsconfig.json FILE IS USED TO CONGIGURE HOW TS WORKS
 // BASIC TYPES
 let id = 5;
 let company = "Traversy Media";
 let isPublished = true;
 let x = "Hello";
-let ids = [1, 2, 3];
-let arr = [1, true, "hello"];
-// TUPLE
+let ids = [1, 2, 3]; // ARRAY THAT CAN ONLY CONTAIN NUMBERS
+let arr = [1, true, "hello"]; // ARRAY CAN HOLD VALUES OF ANY TYPE
+//  TUPLE
+//  SPECIFY THE EXACT TYPES AT EVERY INDEX INSIDE OF THE ARRAY
 let personArr = [1, "john", true];
-// TUPLE ARRAY
+//  TUPLE ARRAY (ARRAY OF TUPLES)
 let employee;
 employee = [[1, "brad"], [2, "dave"], [3, "steve"]];
-// UNION
-let pid;
-pid = 33;
+//  UNION
+//  VARIABLE TO HOLD MORE THAN ONE TYPE
+let pid = 33;
+// pid = 33;
 pid = "33";
-// ENUM
+pid = undefined;
+pid = null;
+pid = true;
+pid = Symbol('foo');
+// ENUM (ENUMERATED)
 // SET OF NAMED CONSTANTS (NUMERIC BY DEFAULT OR STRING) 
 var direction1;
 (function (direction1) {
