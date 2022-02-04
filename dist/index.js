@@ -21,20 +21,57 @@
 //  MANY TOOLS INCLUDE TS COMPILATION BY DEFAULT
 //  MOST IDE'S HAVE GREAT SUPPORT FOR TS
 //  THE tsconfig.json FILE IS USED TO CONGIGURE HOW TS WORKS
-// =============== BASIC TYPES ===============
+// !!! tsconfig.json COMPILER OPTIONS: "target": "es2018" (es2017 OR LATER) FOR Object.entries TO WORK!!!
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
+// BASIC TYPES
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 let id = 5;
 let company = "Traversy Media";
 let isPublished = true;
 let x = "Hello";
 let ids = [1, 2, 3]; // ARRAY THAT CAN ONLY CONTAIN NUMBERS
 let arr = [1, true, "hello"]; // ARRAY CAN HOLD VALUES OF ANY TYPE
+// ❗️❗️❗️  CHECK FOR NULL OR EMPTY ARRY ORDER ❗️❗️❗️
+const sumArray = (array) => {
+    // ❗️❗️❗️ Object is possibly 'null'.ts(2531) ❗️❗️❗️
+    // if (array.length <= 2 || array === null) return 0; 
+    if (array === null || array.length <= 2)
+        return 0;
+    // OR:
+    // if (!array || array.length <= 1) return 0;
+    return array
+        .sort((a, b) => a - b)
+        .slice(1, -1)
+        .reduce((a, b) => a + b);
+};
+// RETURN 0 IF ARRAY HAS 0, 1 OR 2 ELEMENTS
+// OTHERWISE:
+//    SORT NUMERICALLY
+//    SLICE OUT MIDDLE ELEMENTS
+//    GET SUM
+// console.log(sumArray([6, 2, 1, 8, 10]));
+// console.log(sumArray([]));
+//============= OTHER CODEWARS SOLUTIONS: =============
+// ❗️❗️❗️ if (!array || array.length <= 1) return 0; ❗️❗️❗️
+function sumArray2(array) {
+    if (!array || array.length <= 1)
+        return 0;
+    return array.sort((a, b) => a - b).slice(1, -1).reduce((p, n) => p + n, 0);
+}
+function sumArray3(a) {
+    return (a === null) ? 0 : a.sort((a, b) => a - b).slice(1, -1).reduce((a, b) => a + b, 0);
+}
+// 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 //  ===== TUPLE =====
+// 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 //  SPECIFY THE EXACT TYPES AT EVERY INDEX INSIDE OF THE ARRAY
 let personArr = [1, "john", true];
 //  TUPLE ARRAY (ARRAY OF TUPLES)
 let employee;
 employee = [[1, "brad"], [2, "dave"], [3, "steve"]];
+// 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 //  ===== UNION =====
+// 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 //  VARIABLE TO HOLD MORE THAN ONE TYPE
 let pid = 33;
 // pid = 33;
@@ -43,7 +80,9 @@ pid = undefined;
 pid = null;
 pid = true;
 pid = Symbol('foo');
+// 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 // ===== ENUM (ENUMERATED) =====
+// 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 // SET OF NAMED CONSTANTS (NUMERIC BY DEFAULT OR STRING) 
 var direction1;
 (function (direction1) {
@@ -62,7 +101,9 @@ var direction2;
     direction2["right"] = "rigth";
 })(direction2 || (direction2 = {}));
 console.log(direction2.left); // left
+// 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 // ===== OBJECTS =====
+// 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 // STEP 1:
 // ADD TYPES TO EACH VALUE:
 const user = {
@@ -73,7 +114,9 @@ const user2 = {
     id: 1,
     name: "eddie"
 };
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // ===== TYPE ASSERTION =====
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // EXPLICITELY TELLING THE COMPILER THAT WE WANT TO TREAT AN ENTITY AS A DIFFERENT TYPE
 // cid ORIGINALLY TYPE: any BUT WE'RE SETTIN customerId TO THAT AND WE'RE ASSERTING THAT WE WANT IT TO BE TYPE: number
 let cid = 1;
@@ -82,7 +125,73 @@ let customerId = cid; // NOW customerId SHOULD BE A number
 // customerId = true;  //Type 'boolean' is not assignable to type 'number'
 // SYNTAX 2:
 let customerId2 = cid;
+// 1️⃣ 
+// ❗️❗️❗️ Object is possibly 'null'.ts(2531) ❗️❗️❗️
+// !!! "Non-null assertion operator" (!) !!!
+/*
+https://stackoverflow.com/questions/49431880/ts2531-object-is-possibly-null
+
+You should either check for null (using an if) or use a "Non-null assertion operator" (!) if you are sure it is not null:
+
+if(nativeElement.files != null) {
+    this.photoService.upload(this.vehicleId, nativeElement.files[0])
+        .subscribe(x => console.log(x));
+}
+
+OR
+this.photoService.upload(this.vehicleId, nativeElement.files![0])
+    .subscribe(x => console.log(x));
+Note:
+
+The "Non-null assertion operator" will not perform any runtime checks, it just tells the compiler you have special information and you know nativeElement.files will not be null at runtime.
+
+If nativeElement.files is null at runtime, it will generate an error. This is not the safe navigation operator of other languages.
+*/
+// Examples
+// "is2 Thi1s T4est 3a"  -->  "Thi1s is2 3a T4est"
+// "4of Fo1r pe6ople g3ood th5e the2"  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
+// ""  -->  ""
+const order = (words) => {
+    if (words.length === 0) {
+        return "";
+    }
+    else {
+        const orderedArr = [];
+        words.split(" ").forEach((word) => {
+            let numStr = Number(word.match(/[1-9]/)[0]) - 1; // ❗️❗️❗️
+            orderedArr[numStr] = word;
+        });
+        return orderedArr.join(" ");
+    }
+};
+// 2️⃣ 
+// ❗️❗️❗️ Object is possibly 'null'.ts(2531) ❗️❗️❗️
+/*
+const strArr = word.split("");
+    strArr.forEach((letter, i) => {
+        let regex = new RegExp(letter, "gi");
+        console.table(
+            {
+                letter: strArr[i],
+                matches: word.match(regex)?.length
+            }
+        );
+        //❗️❗️❗️ WITHOUT "?" OBJECT IS POSSIBLY NULL ❗️❗️❗️
+        //❗️❗️❗️ OPTIONAL PROPERTY "?" ❗️❗️❗️
+        let counter: number | undefined = word.match(regex)?.length;
+        if (counter !== undefined) {
+            if (counter > 1) {
+                strArr[i] = ")";
+            } else {
+                strArr[i] = "(";
+            }
+        }
+    })
+    return strArr.join("");
+*/
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // ===== FUNCTIONS =====
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // EACH ARGUMENT WE PASS IN HAS TO BE A CERTAIN TYPE AS WELL AS THE RETURN VALUE
 // FUNCTION DECLARATION:
 function addNum(x, y) {
@@ -105,7 +214,39 @@ const user3 = {
 // THESE 2 FUNCTIONS BOTH USE THE SAME INTERFACE:
 const addition2 = (x, y) => x + y;
 const substraction = (x, y) => x - y;
+// EXAMPLE:
+// SOURCE: https://www.reddit.com/r/typescript/comments/hm8jbv/how_to_define_an_interface_for_objects_with/fx4szci/
+// 🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰
+// ❗️❗️❗️ DEFINE INTERFACE FOR WHAT'S BEING RETURNED ❗️❗️❗️
+// TO AVOID ERROR: Element implicitly has 'any' type because expression of type 'number' can't be used to index type '{}'
+// ❗️❗️❗️ LOOK INTO THIS: ❗️❗️❗️
+// A type like { [key: string]: number } is just bad and should not be used ever.
+// Consider an example: const test: { [key: string]: number } = { a: 1 }; test.b // TS will think it’s of type number, while in fact it’s undefined.
+// A type declared like that literally says: „for each key of string type there is a number value”. Which simply is not the case. Just don’t do it. It’s as bad as using any.
+// If you need to use an object as a key-value mapper, do it well and either define the keys statically, or make the type of value a union with undefined.
+// 1️⃣    WITH filter()
+const findOdd = (arr) => {
+    const counter = {};
+    arr.forEach(num => counter[num] = (counter[num] || 0) + 1);
+    const oddTimesArr = Object.entries(counter).filter(([key, value]) => value % 2 > 0);
+    // console.log(Number(oddTimesArr[0][0]));
+    return Number(oddTimesArr[0][0]);
+};
+// 2️⃣    WITH forEach()
+const findOdd2 = (arr) => {
+    const counter = {};
+    arr.forEach(num => counter[num] = (counter[num] || 0) + 1);
+    let solution; // INITIALIZE ❗️❗️❗️
+    Object.entries(counter).forEach(([key, value]) => {
+        // value % 2 > 0 && console.log("key: ", Number(key));
+        if (value % 2 > 0)
+            solution = Number(key); // TYPE ASSERTION ❗️❗️❗️
+    });
+    return solution;
+};
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // ===== CLASSES =====
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // USED TO CREATE OBJECTS (INSTANCES OF THEIR CLASS)
 class Person {
     constructor(id, name) {
@@ -155,7 +296,9 @@ class Employee extends Person2 {
 }
 const employee2 = new Employee(888, "sly stallone", "director");
 console.log(employee2.register()); // sly stallone is now registered
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // GENERICS
+// 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // USED TO BUILD REUSABLE COMPONENTS
 const getArray = (items) => {
     return new Array().concat(items); // RETURN AN ARRAY OF ANY TYPE
