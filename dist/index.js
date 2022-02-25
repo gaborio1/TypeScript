@@ -101,6 +101,100 @@ var direction2;
     direction2["right"] = "rigth";
 })(direction2 || (direction2 = {}));
 console.log(direction2.left); // left
+//  CODEWARS EXAMPLE: CHECK COUPON 7KYU
+var months;
+(function (months) {
+    months[months["January"] = 1] = "January";
+    months[months["February"] = 2] = "February";
+    months[months["March"] = 3] = "March";
+    months[months["April"] = 4] = "April";
+    months[months["May"] = 5] = "May";
+    months[months["June"] = 6] = "June";
+    months[months["July"] = 7] = "July";
+    months[months["August"] = 8] = "August";
+    months[months["September"] = 9] = "September";
+    months[months["October"] = 10] = "October";
+    months[months["November"] = 11] = "November";
+    months[months["December"] = 12] = "December";
+})(months || (months = {})); // ❗️❗️❗️ HAVE TO USE ANY, string WILL THROW AN ERROR WHEN ACCESSING VALUE BY KEY (months[currMonth]) ❗️❗️❗️
+const currentMonth = "February";
+const currMonthIdx = months[currentMonth]; // 2
+//  CODEWARS EXAMPLE:   SWITCH IT UP - number between 0-9, return it in words.
+function switchItUp2(intNumber) {
+    let out;
+    (function (out) {
+        out[out["Zero"] = 0] = "Zero";
+        out[out["One"] = 1] = "One";
+        out[out["Two"] = 2] = "Two";
+        out[out["Three"] = 3] = "Three";
+        out[out["Four"] = 4] = "Four";
+        out[out["Five"] = 5] = "Five";
+        out[out["Six"] = 6] = "Six";
+        out[out["Seven"] = 7] = "Seven";
+        out[out["Eight"] = 8] = "Eight";
+        out[out["Nine"] = 9] = "Nine";
+        out[out["Ten"] = 10] = "Ten";
+    })(out || (out = {}));
+    ;
+    return out[intNumber];
+}
+// CODEWARS EXAMPLE: I LOVE U
+const howMuchILoveYou = (petals) => {
+    let phrases;
+    (function (phrases) {
+        phrases[phrases["I love you"] = 1] = "I love you";
+        phrases[phrases["a little"] = 2] = "a little";
+        phrases[phrases["a lot"] = 3] = "a lot";
+        phrases[phrases["passionately"] = 4] = "passionately";
+        phrases[phrases["madly"] = 5] = "madly";
+        phrases[phrases["not at all"] = 6] = "not at all";
+    })(phrases || (phrases = {}));
+    if (petals <= 6)
+        return phrases[petals];
+    if (petals > 6 && petals % 6)
+        return phrases[petals % 6];
+    return phrases[6];
+};
+//  CHANGE DEFAULT VALUE TO 1
+//  1-6: CORRESPONDING KEY 
+//  GREATER THAN 6 AND NOT DIVISIBLE BY 6: KEY = REMAINDER 
+//  OTHERWISE, IF DIVISIBLE BY 6: KEY = 6
+// console.log(howMuchILoveYou(1)); 
+// console.log(howMuchILoveYou(4));
+// console.log(howMuchILoveYou(6));
+// console.log(howMuchILoveYou(7));
+// console.log(howMuchILoveYou(12));
+/*
+https://stackoverflow.com/questions/50417254/dynamically-access-enum-in-typescript-by-key
+
+enum MyEnum{
+    Option1,
+    Option2,
+    Option3
+}
+
+
+string x = 'Option1';
+
+MyEnum[x] throws an error:
+
+Type string is not assignable to type MyEnum
+
+however: MyEnum['Option1'] works.
+
+I need to use MyEnum[x] though (in a method that returns a MyEnum), where x is a calculated value that results in one of the valid enum options, how do I go about it?
+
+❗️❗️❗️ There are two elegant ways to achieve this 🚀 ❗️❗️❗️
+
+⭐️ 1st way: just simply turn off the type checking for the next line, which is similar to asserting the type of MyEnum to <any> as done in the @annepic 's answer
+
+// @ts-ignore
+MyEnum[x]
+⭐️ 2nd: If u still want to keep the powerful typechecking feature of TS, choose this
+
+MyEnum[x as keyof typeof MyEnum]
+typeof MyEnum will create an interface that represents the MyEnum object behind the scene and keyof will return a union of string literals, each one is the key in the MyEnum object (in other words, keyof will return a list of keys of a given object/class).
+*/
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 // ===== OBJECTS =====
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
