@@ -4,7 +4,6 @@
 // https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia
 // ==================================================================
 
-
 //  ADDITIONAL FEATURES TO JS INCL. STATIC TYPES
 //  USING TYPES IS COMPLETELY OPTIONAL
 //  COMPILES DOWN TO REGULAR JS
@@ -28,7 +27,6 @@
 
 // !!! tsconfig.json COMPILER OPTIONS: "target": "es2018" (es2017 OR LATER) FOR Object.entries TO WORK!!!
 
-
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // BASIC TYPES
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
@@ -38,14 +36,15 @@ let company: string = "Traversy Media";
 let isPublished: boolean = true;
 let x: any = "Hello";
 
-let ids: number[] = [1, 2, 3];          // ARRAY THAT CAN ONLY CONTAIN NUMBERS
-let arr: any[] = [1, true, "hello"];    // ARRAY CAN HOLD VALUES OF ANY TYPE
+let ids: number[] = [1, 2, 3]; // ARRAY THAT CAN ONLY CONTAIN NUMBERS
+let arr: any[] = [1, true, "hello"]; // ARRAY CAN HOLD VALUES OF ANY TYPE
+let uniqueOdds = new Set<number>(); // SET OF NUMBERS
+// uniqueOdds.add("hello"); ==> ERROR: Argument of type 'string' is not assignable to parameter of type 'number'.ts(2345)
 
 // ❗️❗️❗️  CHECK FOR NULL OR EMPTY ARRY ORDER ❗️❗️❗️
 const sumArray = (array: number[] | null): number => {
-
     // ❗️❗️❗️ Object is possibly 'null'.ts(2531) ❗️❗️❗️
-    // if (array.length <= 2 || array === null) return 0; 
+    // if (array.length <= 2 || array === null) return 0;
 
     if (array === null || array.length <= 2) return 0;
     // OR:
@@ -55,8 +54,7 @@ const sumArray = (array: number[] | null): number => {
         .sort((a, b) => a - b)
         .slice(1, -1)
         .reduce((a, b) => a + b);
-
-}
+};
 
 // RETURN 0 IF ARRAY HAS 0, 1 OR 2 ELEMENTS
 // OTHERWISE:
@@ -73,25 +71,35 @@ const sumArray = (array: number[] | null): number => {
 
 function sumArray2(array: number[]): number {
     if (!array || array.length <= 1) return 0;
-    return array.sort((a, b) => a - b).slice(1, -1).reduce((p, n) => p + n, 0);
+    return array
+        .sort((a, b) => a - b)
+        .slice(1, -1)
+        .reduce((p, n) => p + n, 0);
 }
 
-
 function sumArray3(a: number[]): number {
-    return (a === null) ? 0 : a.sort((a, b) => a - b).slice(1, -1).reduce((a, b) => a + b, 0);
+    return a === null
+        ? 0
+        : a
+              .sort((a, b) => a - b)
+              .slice(1, -1)
+              .reduce((a, b) => a + b, 0);
 }
 
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 //  ===== TUPLE =====
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 
-
 //  SPECIFY THE EXACT TYPES AT EVERY INDEX INSIDE OF THE ARRAY
 let personArr: [number, string, boolean] = [1, "john", true];
 
 //  TUPLE ARRAY (ARRAY OF TUPLES)
 let employee: [number, string][];
-employee = [[1, "brad"], [2, "dave"], [3, "steve"]];
+employee = [
+    [1, "brad"],
+    [2, "dave"],
+    [3, "steve"],
+];
 
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 //  ===== UNION =====
@@ -104,19 +112,19 @@ pid = "33";
 pid = undefined;
 pid = null;
 pid = true;
-pid = Symbol('foo');
+pid = Symbol("foo");
 
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 // ===== ENUM (ENUMERATED) =====
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 
-// SET OF NAMED CONSTANTS (NUMERIC BY DEFAULT OR STRING) 
+// SET OF NAMED CONSTANTS (NUMERIC BY DEFAULT OR STRING)
 
 enum direction1 {
-    up = 1,             // DEFAULT VALUE: 0 AND SO ON !!!
+    up = 1, // DEFAULT VALUE: 0 AND SO ON !!!
     down,
     left,
-    right
+    right,
 }
 
 // IF WE CHANGE up = 1, THEN INDICES WILL START ON 1, 2, 3 ETC..
@@ -127,12 +135,10 @@ enum direction2 {
     up = "up",
     down = "down",
     left = "left",
-    right = "rigth"
+    right = "rigth",
 }
 
-console.log(direction2.left)  // left
-
-
+console.log(direction2.left); // left
 
 //  CODEWARS EXAMPLE: CHECK COUPON 7KYU
 enum months {
@@ -147,47 +153,55 @@ enum months {
     September,
     October,
     November,
-    December
-}// ❗️❗️❗️ HAVE TO USE ANY, string WILL THROW AN ERROR WHEN ACCESSING VALUE BY KEY (months[currMonth]) ❗️❗️❗️
-const currentMonth: any = "February"
-const currMonthIdx: any = months[currentMonth];  // 2
-
+    December,
+} // ❗️❗️❗️ HAVE TO USE ANY, string WILL THROW AN ERROR WHEN ACCESSING VALUE BY KEY (months[currMonth]) ❗️❗️❗️
+const currentMonth: any = "February";
+const currMonthIdx: any = months[currentMonth]; // 2
 
 //  CODEWARS EXAMPLE:   SWITCH IT UP - number between 0-9, return it in words.
 function switchItUp2(intNumber: number): string {
-    enum out { Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten };
+    enum out {
+        Zero,
+        One,
+        Two,
+        Three,
+        Four,
+        Five,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+    }
     return out[intNumber];
 }
 
-
 // CODEWARS EXAMPLE: I LOVE U
 const howMuchILoveYou = (petals: number): string => {
-
     enum phrases {
         "I love you" = 1,
         "a little",
         "a lot",
         "passionately",
         "madly",
-        "not at all"
+        "not at all",
     }
 
     if (petals <= 6) return phrases[petals];
     if (petals > 6 && petals % 6) return phrases[petals % 6];
     return phrases[6];
-}
+};
 
 //  CHANGE DEFAULT VALUE TO 1
-//  1-6: CORRESPONDING KEY 
-//  GREATER THAN 6 AND NOT DIVISIBLE BY 6: KEY = REMAINDER 
+//  1-6: CORRESPONDING KEY
+//  GREATER THAN 6 AND NOT DIVISIBLE BY 6: KEY = REMAINDER
 //  OTHERWISE, IF DIVISIBLE BY 6: KEY = 6
 
-// console.log(howMuchILoveYou(1)); 
+// console.log(howMuchILoveYou(1));
 // console.log(howMuchILoveYou(4));
 // console.log(howMuchILoveYou(6));
 // console.log(howMuchILoveYou(7));
 // console.log(howMuchILoveYou(12));
-
 
 /*
 https://stackoverflow.com/questions/50417254/dynamically-access-enum-in-typescript-by-key
@@ -221,7 +235,6 @@ MyEnum[x as keyof typeof MyEnum]
 typeof MyEnum will create an interface that represents the MyEnum object behind the scene and keyof will return a union of string literals, each one is the key in the MyEnum object (in other words, keyof will return a list of keys of a given object/class).
 */
 
-
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
 // ===== OBJECTS =====
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
@@ -229,26 +242,25 @@ typeof MyEnum will create an interface that represents the MyEnum object behind 
 // STEP 1:
 
 // ADD TYPES TO EACH VALUE:
-const user: {           // DEFINE AN OBJECT TYPE, THAT
-    id: number,         // EXPECTS AN id, WHICH SHOULD BE A NUMBER
-    name: string        // AND A name, THAT SHOULD BE A STRING
+const user: {
+    // DEFINE AN OBJECT TYPE, THAT
+    id: number; // EXPECTS AN id, WHICH SHOULD BE A NUMBER
+    name: string; // AND A name, THAT SHOULD BE A STRING
 } = {
     id: 1,
-    name: "alex"
-}
+    name: "alex",
+};
 
 // STEP 2: REFACTOR AND SET UP A type:
 type User = {
-    id: number,
-    name: string
-}
+    id: number;
+    name: string;
+};
 
 const user2: User = {
     id: 1,
-    name: "eddie"
-}
-
-
+    name: "eddie",
+};
 
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // ===== TYPE ASSERTION =====
@@ -260,13 +272,13 @@ const user2: User = {
 let cid: any = 1;
 
 // SYNTAX 1 WITH ANGLED BRACKETS:
-let customerId = <number>cid;   // NOW customerId SHOULD BE A number
+let customerId = <number>cid; // NOW customerId SHOULD BE A number
 // customerId = true;  //Type 'boolean' is not assignable to type 'number'
 
 // SYNTAX 2:
 let customerId2 = cid as number;
 
-// 1️⃣ 
+// 1️⃣
 // ❗️❗️❗️ Object is possibly 'null'.ts(2531) ❗️❗️❗️
 // !!! "Non-null assertion operator" (!) !!!
 
@@ -295,9 +307,7 @@ If nativeElement.files is null at runtime, it will generate an error. This is no
 // "4of Fo1r pe6ople g3ood th5e the2"  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
 // ""  -->  ""
 
-
 const order = (words: string): string => {
-
     if (words.length === 0) {
         return "";
     } else {
@@ -305,14 +315,12 @@ const order = (words: string): string => {
         words.split(" ").forEach((word) => {
             let numStr: number = Number(word.match(/[1-9]/)![0]) - 1; // ❗️❗️❗️
             orderedArr[numStr] = word;
-        })
+        });
         return orderedArr.join(" ");
     }
+};
 
-}
-
-
-// 2️⃣ 
+// 2️⃣
 // ❗️❗️❗️ Object is possibly 'null'.ts(2531) ❗️❗️❗️
 
 /*
@@ -353,13 +361,13 @@ const wave2 = (str: string): string[] => { return ["hello"] }
 
 // FUNCTION DECLARATION:
 function addNum(x: number, y: number): number {
-    return x + y
+    return x + y;
 }
 
 // ARROW:
 const addition = (x: number, y: number): number => {
     return x + y;
-}
+};
 
 console.log(addition(1, 2));
 // console.log(addition(1, "2"));  // Argument of type 'string' is not assignable to parameter of type 'number' !!!
@@ -367,13 +375,44 @@ console.log(addition(1, 2));
 // IF WE DON'T HAVE A RETURN VALUE, USE void AS RETURN VALUE:
 const log = (message: string | number): void => {
     console.log(message);
-}
+};
 
 // log("hello");   // STRING: OK
 // log(500);       // NUMBER: OK
 // log(true);      // ANYTHIG ELSE: ERROR !!!
 
+// ❗️❗️❗️ OPTIONAL / DEFAULT PARAMETERS: ❗️❗️❗️
 
+// OPTIONAL n
+export const arr1 = (n?: number): number[] => {
+    // CHECK FOR n
+    if (!n) return [];
+
+    let solution: number[] = [];
+
+    for (let i = 0; i < n; i++) {
+        solution.push(i);
+    }
+
+    return solution;
+};
+
+/*
+TypeScript provides following syntax for optional parameters:
+// Optional Parameters
+sayHello(hello?: string) { 
+    console.log(hello); 
+}
+sayHello(); // Prints 'undefined'
+sayHello('world'); // Prints 'world'
+And for default parameters:
+// Default Parameters
+sayHello(hello: string = 'hello') { 
+    console.log(hello); 
+}
+sayHello(); // Prints 'hello'
+sayHello('world'); // Prints 'world'
+*/
 
 // ===== INTERFACES =====
 
@@ -388,27 +427,24 @@ const log = (message: string | number): void => {
 //  interface:
 // interface Point2 = number | string; // ERROR string' only refers to a type, but is being used as a value here
 
-
-
 // WITH OBJECT:
 interface UserInterface {
-    readonly id: number,    // READ ONLY PROPERTY
-    name: string,
-    age?: number            // OPTIONAL PROPERTY
-
+    readonly id: number; // READ ONLY PROPERTY
+    name: string;
+    age?: number; // OPTIONAL PROPERTY
 }
 
-const user3: UserInterface = {      // WILL WORK WITHOUT THE OPTIONAL age? 
+const user3: UserInterface = {
+    // WILL WORK WITHOUT THE OPTIONAL age?
     id: 1,
-    name: "eddie"
-}
+    name: "eddie",
+};
 
 // user3.id = 987;     // Cannot assign to 'id' because it is a read-only property
 
-
 // WITH FUNCTION:
 interface MathFunc {
-    (x: number, y: number): number
+    (x: number, y: number): number;
 }
 
 // THESE 2 FUNCTIONS BOTH USE THE SAME INTERFACE:
@@ -433,72 +469,66 @@ const substraction: MathFunc = (x: number, y: number): number => x - y;
 
 // If you need to use an object as a key-value mapper, do it well and either define the keys statically, or make the type of value a union with undefined.
 
-
-
 // 1️⃣    WITH filter()
 
 const findOdd = (arr: number[]): number => {
-
     interface NumCounter {
         [key: string]: number;
     }
 
     const counter: NumCounter = {};
 
-    arr.forEach(num => counter[num] = (counter[num] || 0) + 1);
+    arr.forEach((num) => (counter[num] = (counter[num] || 0) + 1));
 
-    const oddTimesArr = Object.entries(counter).filter(([key, value]) => value % 2 > 0);
+    const oddTimesArr = Object.entries(counter).filter(
+        ([key, value]) => value % 2 > 0
+    );
 
     // console.log(Number(oddTimesArr[0][0]));
     return Number(oddTimesArr[0][0]);
 };
 
-
-
 // 2️⃣    WITH forEach()
 
 const findOdd2 = (arr: number[]): number => {
-
     interface NumCounter {
         [key: string]: number;
     }
 
     const counter: NumCounter = {};
 
-    arr.forEach(num => counter[num] = (counter[num] || 0) + 1);
+    arr.forEach((num) => (counter[num] = (counter[num] || 0) + 1));
 
-    let solution: any;  // INITIALIZE ❗️❗️❗️
+    let solution: any; // INITIALIZE ❗️❗️❗️
 
     Object.entries(counter).forEach(([key, value]) => {
         // value % 2 > 0 && console.log("key: ", Number(key));
-        if (value % 2 > 0) solution = Number(key) as number;    // TYPE ASSERTION ❗️❗️❗️
+        if (value % 2 > 0) solution = Number(key) as number; // TYPE ASSERTION ❗️❗️❗️
     });
 
-
     return solution;
-
 };
 
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // ===== CLASSES =====
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
-
 // USED TO CREATE OBJECTS (INSTANCES OF THEIR CLASS)
 
 class Person {
-    id: number
-    name: string
+    id: number;
+    name: string;
 
-    constructor(id: number, name: string) {     // CONSTR RUNS EVERY TIME AN OBJ IS INSTANTIATED FROM CLASS
+    constructor(id: number, name: string) {
+        // CONSTR RUNS EVERY TIME AN OBJ IS INSTANTIATED FROM CLASS
         console.log("hello from constructor");
-        this.id = id;                           //  TAKE THESE PARAMETERS THAT ARE PASSED IN,
-        this.name = name;                       //  AND ASSIGN THEM TO CLASS PROPERTIES (id, name)
-        console.log(this.id, this.name);        // this = CURRENT INSTANCE (CLASS WE'RE IN)
+        this.id = id; //  TAKE THESE PARAMETERS THAT ARE PASSED IN,
+        this.name = name; //  AND ASSIGN THEM TO CLASS PROPERTIES (id, name)
+        console.log(this.id, this.name); // this = CURRENT INSTANCE (CLASS WE'RE IN)
     }
 
     register() {
-        return `${this.name} is now registered`
+        return `${this.name} is now registered`;
     }
 }
 
@@ -508,9 +538,6 @@ const mike = new Person(666, "michael anthony");
 
 console.log(brad, mike);
 // Person { id: 777, name: 'brad traversy' } Person { id: 666, name: 'michael anthony' }
-
-
-
 
 // ACCESS (DATA) MODIFIERS: PUBLIC (DEFAULT), PRIVATE AND PROTECTED
 
@@ -530,15 +557,15 @@ console.log(brad.register());
 // IMPLEMENT interface TO class
 
 interface PersonInterface {
-    id: number,    // READ ONLY PROPERTY
-    name: string,
-    age?: number            // OPTIONAL PROPERTY
+    id: number; // READ ONLY PROPERTY
+    name: string;
+    age?: number; // OPTIONAL PROPERTY
     register(): string;
 }
 
 class Person2 implements PersonInterface {
-    public id: number                           // CAN LEAVE OUT public AS IT IS DEFAULT !!!
-    name: string
+    public id: number; // CAN LEAVE OUT public AS IT IS DEFAULT !!!
+    name: string;
 
     constructor(id: number, name: string) {
         console.log("hello from constructor");
@@ -548,10 +575,9 @@ class Person2 implements PersonInterface {
     }
 
     register() {
-        return `${this.name} is now registered`     // SHOULD RETURN string AS DEFINED IN PersonInterface
+        return `${this.name} is now registered`; // SHOULD RETURN string AS DEFINED IN PersonInterface
     }
 }
-
 
 // EXTENDING CLASS TO SUBCLASS
 
@@ -559,53 +585,49 @@ class Person2 implements PersonInterface {
 
 // SUBCLASS OF Person2
 class Employee extends Person2 {
-
     //  ADDITIONAL PROPERTY:
-    position: string
+    position: string;
 
     constructor(id: number, name: string, position: string) {
-        super(id, name);    // (this.id = id; this.name = name;)    THESE 2 DON'T HAVE TO BE INITIALISED
-        this.position = position;   // NEW PROPERTY HAS TO BE INITIALISED
+        super(id, name); // (this.id = id; this.name = name;)    THESE 2 DON'T HAVE TO BE INITIALISED
+        this.position = position; // NEW PROPERTY HAS TO BE INITIALISED
         console.log(this.id, this.name, this.position);
     }
 }
 
 const employee2 = new Employee(888, "sly stallone", "director");
-console.log(employee2.register());  // sly stallone is now registered
-
-
+console.log(employee2.register()); // sly stallone is now registered
 
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // GENERICS
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 
-
 // USED TO BUILD REUSABLE COMPONENTS
 
-const getArray = (items: any[]): any[] => {     // ACCEPT AN ARRAY OF ANY TYPE
-    return new Array().concat(items);           // RETURN AN ARRAY OF ANY TYPE
-}
+const getArray = (items: any[]): any[] => {
+    // ACCEPT AN ARRAY OF ANY TYPE
+    return new Array().concat(items); // RETURN AN ARRAY OF ANY TYPE
+};
 
 //  WE WANT TO USE getArray TO CREATE THESE TWO DIFFERENT ARRAYS
 let numArray = getArray([1, 2, 3, 4]);
 let stringArr = getArray(["kip", "reb", "paul"]);
 
 // !!! BUT: WE CAN PUSH NON MATCHING TYPES TO THESE ARRAYS WHICH WE DON'T WANT !!!
-numArray.push(456);     // OK
-numArray.push("rod");   // OK       !!! BUG !!!
-stringArr.push("659");  // OK
-stringArr.push(659);    // OK       !!! BUG !!!
-
-
+numArray.push(456); // OK
+numArray.push("rod"); // OK       !!! BUG !!!
+stringArr.push("659"); // OK
+stringArr.push(659); // OK       !!! BUG !!!
 
 //
 
-const getArray2 = <T>(items: T[]): T[] => {     // <T> PLACEHOLDER OF THE TYPE (TO REPLACE any)
+const getArray2 = <T>(items: T[]): T[] => {
+    // <T> PLACEHOLDER OF THE TYPE (TO REPLACE any)
     return new Array().concat(items);
-}
+};
 
-let numArray2 = getArray2<number>([1, 2, 3, 4]);                // DEFINE TYPE  <number>
-let stringArr2 = getArray2<string>(["kip", "reb", "paul"]);     // DEFINE TYPE  <string>
+let numArray2 = getArray2<number>([1, 2, 3, 4]); // DEFINE TYPE  <number>
+let stringArr2 = getArray2<string>(["kip", "reb", "paul"]); // DEFINE TYPE  <string>
 
 // numArray2.push("six");  // ERROR, BUG CAUGHT
 numArray2.push(6);
@@ -613,13 +635,7 @@ numArray2.push(6);
 // stringArr2.push(987);   // ERROR, BUG CAUGHT
 stringArr2.push("alice");
 
-
 // 47:30 LAST MODULE: TS WITH REACT
-
-
-
-
-
 
 // ==================================================================
 // TypeScript Course for Beginners 2021 - Learn TypeScript from Scratch!
@@ -627,13 +643,10 @@ stringArr2.push("alice");
 // https://www.youtube.com/watch?v=BwuLxPH8IDs&t=3930s&ab_channel=Academind
 // ==================================================================
 
-
-
 // let id: number = 5;
 // console.log("id: ", id);
 
-
-// ==================== TYPES ===================== 
+// ==================== TYPES =====================
 
 // ===== number, boolean, string =====
 
@@ -656,29 +669,26 @@ stringArr2.push("alice");
 //     }
 // }
 
-
-
 // ADD EXPLICIT TYPE ASSIGNMENTS TO PARAMETERS
 const add = (n1: number, n2: number, showResult: boolean, phrase: string) => {
     const result = n1 + n2;
     if (showResult) {
-        console.log(phrase + n1 + n2);  // Result is: 53
-        console.log(phrase, result);    // Result is:  8
+        console.log(phrase + n1 + n2); // Result is: 53
+        console.log(phrase, result); // Result is:  8
     } else {
         return result;
     }
-}
+};
 
 // NO ASSIGNMENT HERE AS TS HAS TYPE INFERENCE:
-const number1 = 5;  // INFERRED TO "number"
+const number1 = 5; // INFERRED TO "number"
 // let number1 = 5;
 const number2 = 3;
-const printResult = true;   // INFERRED TO "boolean"
+const printResult = true; // INFERRED TO "boolean"
 const resultPhrase = "Result is: "; // INFERRED TO "string"
 
-
 // BUT:
-let number3: number;    // SPECIFY TYPE WHEN INITIALISING
+let number3: number; // SPECIFY TYPE WHEN INITIALISING
 // number3 = "7";          // Type 'string' is not assignable to type 'number' !!!
 // let number4;            // UNLESS WE WANG "any" TYPE
 
@@ -686,8 +696,6 @@ let number3: number;    // SPECIFY TYPE WHEN INITIALISING
 // console.log(result);   // 8
 
 add(number1, number2, printResult, resultPhrase);
-
-
 
 // ===== OBJECT =====
 
@@ -712,19 +720,16 @@ add(number1, number2, printResult, resultPhrase);
 
 // const person: object
 
-
 // SPECIALISED OBJECT TYPE WITH INFO ABOUT ITS STRUCTURE:
 const person: {
     name: string;
     age: number;
 } = {
     name: "max",
-    age: 30
-}
+    age: 30,
+};
 
-console.log(person.name)
-
-
+console.log(person.name);
 
 // ===== ARRAY =====
 
@@ -732,15 +737,13 @@ console.log(person.name)
 
 const hobbies = ["sports", "cooking"];
 // const hobbies2: string[]; // const VARIABLES MUST BE INITIALISED
-let hobbies2: string[];        // ARRAY OF STRINGS 
+let hobbies2: string[]; // ARRAY OF STRINGS
 hobbies2 = ["sports", "cooking"];
 
 for (const hobby of hobbies2) {
-    console.log(hobby.toUpperCase());   // CAN CALL STRING METHODS
+    console.log(hobby.toUpperCase()); // CAN CALL STRING METHODS
     // console.log(hobby.map());    !!! ERROR AS map IS ARRAY METHOD !!!
 }
-
-
 
 // ===== TUPLE =====
 
@@ -749,17 +752,14 @@ for (const hobby of hobbies2) {
 //  ARRAY:
 
 // UNION TYPE MIGHT HOLD STRINGS OR NUMBERS BUT WE CAN MUTATE THIS ARRAY
-const role = [2, "author"];    // => const role: (string | number)[]
+const role = [2, "author"]; // => const role: (string | number)[]
 
-
-//  TUPLE: 
+//  TUPLE:
 
 // DEFINING EXACT STRUCTURE OF ARRAY, [0] MUST BE NUMBER AND [1] MUST BE STRING
 // LENGTH WILL BE ENFORCED EXCEPT FOR push()
 // !!! WE CAN STILL role2.push("admin") !!!
 let role2: [number, string];
-
-
 
 // ===== ENUM =====
 
@@ -777,45 +777,50 @@ let role2: [number, string];
 // INSTEAD:
 
 // DEFAULT STARTS WITH 0;
-enum Role { ADMIN, READ_ONLY, AUTHOR }; // 0, 1, 2
+enum Role {
+    ADMIN,
+    READ_ONLY,
+    AUTHOR,
+} // 0, 1, 2
 // CUSTOM STARTS WITH OTHER NUMBER:
-enum Role2 { ADMIN = 5, READ_ONLY, AUTHOR }; // 5, 5, 7
+enum Role2 {
+    ADMIN = 5,
+    READ_ONLY,
+    AUTHOR,
+} // 5, 5, 7
 //  OR ANY VALUE:
-enum Role3 { ADMIN = 5, READ_ONLY = 876, AUTHOR = "author" }; // 5, 876, "author"
+enum Role3 {
+    ADMIN = 5,
+    READ_ONLY = 876,
+    AUTHOR = "author",
+} // 5, 876, "author"
 
 const person2 = {
     name: "john",
-    role: Role.ADMIN
-}
+    role: Role.ADMIN,
+};
 
 if (person2.role === Role.ADMIN) {
     console.log("is admin");
 }
-
-
 
 // ===== ANY =====
 
 // TS WILL NOT COMPLAIN, TRY NOT TO USE
 // USE IT AS A FALLBACK WHEN WE DON'T KNOW THE TYPES IN ADVANCE
 
-
-
 // ===== UNION =====
-
 
 // MAKE combine WORK WITH BOTH NUMBERS AND STRINGS
 const combine = (input1: number, input2: number) => {
     const result = input1 + input2;
     return result;
-}
+};
 
 const combinedAges = combine(10, 5);
-console.log(combinedAges);  // 15 AS EXPECTED
+console.log(combinedAges); // 15 AS EXPECTED
 
 // const combinedNames = combinedAges("hello", "world"); // !!! ERROR !!!
-
-
 
 // ===== LITERAL =====
 
@@ -831,24 +836,27 @@ const combine2 = (input1: number | string, input2: number | string) => {
     let result;
     // MIGHT NEED A RUNTIME TYPE CHECK:
     if (typeof input1 === "number" && typeof input2 === "number") {
-        result = input1 + input2;   // MAKE SURE INPUTS ARE NUMBERS (ADD)
+        result = input1 + input2; // MAKE SURE INPUTS ARE NUMBERS (ADD)
     } else {
         result = input1.toString() + input2.toString(); // INPUTS ARE STRINGS (CONCAT)
     }
     return result;
-}
+};
 
-console.log(combine2(10, 5));               // 15
-console.log(combine2("hello", "world"));    // "helloworld"
-
+console.log(combine2(10, 5)); // 15
+console.log(combine2("hello", "world")); // "helloworld"
 
 // ALLOW / FORCE CONVERSION FROM number =>  string / string => number TO ALLOW STRING INPUTS RETURNED AS NUMBER
 
-const combine3 = (input1: number | string, input2: number | string, resultConversion: string) => {
+const combine3 = (
+    input1: number | string,
+    input2: number | string,
+    resultConversion: string
+) => {
     let result;
     // RUNTIME TYPE CHECK:
     if (typeof input1 === "number" && typeof input2 === "number") {
-        result = input1 + input2;   // MAKE SURE INPUTS ARE NUMBERS (ADD)
+        result = input1 + input2; // MAKE SURE INPUTS ARE NUMBERS (ADD)
     } else {
         result = input1.toString() + input2.toString(); // INPUTS ARE STRINGS (CONCAT)
     }
@@ -860,7 +868,7 @@ const combine3 = (input1: number | string, input2: number | string, resultConver
         return result.toString();
     }
     return result;
-}
+};
 
 // OR:
 
@@ -871,8 +879,11 @@ const combine4 = (
 ) => {
     let result;
     // RUNTIME TYPE CHECK:
-    if (typeof input1 === "number" && typeof input2 === "number" || resultConversion === "as-number") {
-        result = +input1 + +input2;   // MAKE SURE INPUTS ARE NUMBERS (ADD)
+    if (
+        (typeof input1 === "number" && typeof input2 === "number") ||
+        resultConversion === "as-number"
+    ) {
+        result = +input1 + +input2; // MAKE SURE INPUTS ARE NUMBERS (ADD)
     } else {
         result = input1.toString() + input2.toString(); // INPUTS ARE STRINGS (CONCAT)
     }
@@ -884,18 +895,15 @@ const combine4 = (
     //     return result.toString();
     // }
     return result;
-}
+};
 
-
-console.log(combine4(10, 5, "as-number"));               // 15
-console.log(combine4(10, 5, "as-string"));               // "15"
-console.log(combine4("hello", "world", "as-string"));    // "helloworld"
-
-
+console.log(combine4(10, 5, "as-number")); // 15
+console.log(combine4(10, 5, "as-string")); // "15"
+console.log(combine4("hello", "world", "as-string")); // "helloworld"
 
 // ===== TYPE ALIAS =====
 
-type Combinable = number | string;  // ALLOW 2 EXACT VALUES ONLY AS TYPE !!!
+type Combinable = number | string; // ALLOW 2 EXACT VALUES ONLY AS TYPE !!!
 type ConversionDescriptor = "as-number" | "as-string";
 
 const combine5 = (
@@ -904,38 +912,39 @@ const combine5 = (
     resultConversion: ConversionDescriptor // USE ConversionDescriptor TYPE ALIAS
 ) => {
     let result;
-    if (typeof input1 === "number" && typeof input2 === "number" || resultConversion === "as-number") {
-        result = +input1 + +input2;   // MAKE SURE INPUTS ARE NUMBERS (ADD)
+    if (
+        (typeof input1 === "number" && typeof input2 === "number") ||
+        resultConversion === "as-number"
+    ) {
+        result = +input1 + +input2; // MAKE SURE INPUTS ARE NUMBERS (ADD)
     } else {
         result = input1.toString() + input2.toString(); // INPUTS ARE STRINGS (CONCAT)
     }
     return result;
-}
+};
 
-console.log(combine5(10, 5, "as-number"));               // 15
-console.log(combine5(10, 5, "as-string"));               // "15"
-console.log(combine5("hello", "world", "as-string"));    // "helloworld"
-
-
-
-
+console.log(combine5(10, 5, "as-number")); // 15
+console.log(combine5(10, 5, "as-string")); // "15"
+console.log(combine5("hello", "world", "as-string")); // "helloworld"
 
 // ===== FUNCTION RETURN TYPES AND VOID =====
 // (NO RETURN STATEMENT: void / RETURN WITH NO VALUE: undefined)
 
-const add2 = (n1: number, n2: number): number => {  // OPTIONAL RETURN TYPE
+const add2 = (n1: number, n2: number): number => {
+    // OPTIONAL RETURN TYPE
     return n1 + n2;
-}
+};
 
 // LET TS INFER RETURN TYPE UNLESS WE EXPLICITELY WANT TO DEFINE IT !!!
 
 // printResult2 IS NOR RETURNING ANYTHING SO ITS RETURN TYPE IS: void, WE DONT HAVE TO SPECIFY IT, TS INFERENCE WILL DO IT FOR US: const printResult2 = (num: number): void =>
-const printResult2 = (num: number) => { // const printResult2: (num: number) => void
+const printResult2 = (num: number) => {
+    // const printResult2: (num: number) => void
     console.log("Result: " + num);
-}
+};
 
-printResult2(add2(3, 8));               // 11
-console.log(printResult2(add2(3, 8)));  // !!! undefined !!! BECAUSE printResult2 RETURNS undefined !!!
+printResult2(add2(3, 8)); // 11
+console.log(printResult2(add2(3, 8))); // !!! undefined !!! BECAUSE printResult2 RETURNS undefined !!!
 
 // IN TS, FUNCTIONS ARE NOT ALLOWED TO RETURN undefided, TECHNICALLY, THEY DO, SEE ABOVE printResult2
 
@@ -943,50 +952,49 @@ console.log(printResult2(add2(3, 8)));  // !!! undefined !!! BECAUSE printResult
 
 // IF WE USED undefined, TS WOULD EXPECT TO USE A RETURN STATEMENT WITHOUT RETURNING A VALUE:
 
-// const printResult3 = (num: number): undefined => { 
+// const printResult3 = (num: number): undefined => {
 //     console.log("Result: " + num);
 //     return;
 // }
-
-
-
 
 // ===== FUNCTION ===== (a: number, b: number) => number;
 
 // DESCRIBE A FUNCTION, ITS PARAMETER TYPES AND RETURN VALUE
 
 let combineValues;
-combineValues = add2;               // STORE FUNCTION IN VARIABLE
-console.log(combineValues(8, 9));   // EXECUTE VARIABLE AS FUNCTION
+combineValues = add2; // STORE FUNCTION IN VARIABLE
+console.log(combineValues(8, 9)); // EXECUTE VARIABLE AS FUNCTION
 
-combineValues = 5;        // combineValues IS TYPE: any, 
+combineValues = 5; // combineValues IS TYPE: any,
 // console.log(combineValues(8, 9));   // WE CAN COMPILE BUT WILL GET AN ERROR AT RUNTIME !!!
 
 // NOW, IT CAN ONLY BE A FUNCTION, BUT ANY FUNCTION WHICH IS STILL NOT IDEAL:
 let combineValues2: Function;
 combineValues2 = printResult2;
-console.log(combineValues2(8, 9));  // WE STORED THE WRONG FUNCTION SO WE WILL GET undefined 
+console.log(combineValues2(8, 9)); // WE STORED THE WRONG FUNCTION SO WE WILL GET undefined
 
 // BE MORE PRECISE ABOUT HOW THE FUNCTION SHOULD LOOK LIKE:
 let combineValues3: (a: number, b: number) => number;
-combineValues3 = add2;          // OK 
+combineValues3 = add2; // OK
 // combineValues3 = printResult;   // ERROR: printResult DOES NOT MATCH PRE-DEFINED f DESCRIPTION
 
 // CALLBACKS
 
 // CALLBACK WILL ACCEPT ONE ARGUMENT WHICH IS A number
-const addAndHandle = (n1: number, n2: number, callBack: (num: number) => void) => {
+const addAndHandle = (
+    n1: number,
+    n2: number,
+    callBack: (num: number) => void
+) => {
     const result = n1 + n2;
     callBack(result);
-}
+};
 
 // TS WILL KNOW THAT result WILL BE A number AS WE DEFINED IT ABOVE FOR THE CALLBACK
 addAndHandle(10, 20, (result) => {
     console.log(result);
     // return result; // WE CAN STILL RETURN BUT WE ARE NOT USING THE RETURN VALUE
 });
-
-
 
 // ===== UNKNOWN =====
 // MORE RESTRICTED THAN any, AND BETTER CHOICE IF WE CAN'T TELL IN ADVANCE WHAT TYPE WILL BE STORED IN IT
@@ -1003,10 +1011,8 @@ userInput = "max";
 
 // WITH unknown FIRST WE HAVE TO CHECK THE TYPE OF THE VALUE CURRENTLY STORED IN userInput BEFORE WE CAN ASSIGN IT TO A VARIABLE THAT CAN ONLY BE A string:
 if (typeof userInput === "string") {
-    userName = userInput
+    userName = userInput;
 }
-
-
 
 // ===== NEVER =====
 // ANOTHER TYPE A FUNCTION CAN RETURN
@@ -1015,8 +1021,8 @@ if (typeof userInput === "string") {
 // const generateError: (message: string, code: number) => never
 // IT IS RETURNING NOT JUST void, IT RETURNS never, NEVER PRODUCING A RETURN VALUE
 const generateError = (message: string, code: number) => {
-    throw { message: message, errorCode: code }
-}
+    throw { message: message, errorCode: code };
+};
 
 generateError("An error occurred", 500);
 
