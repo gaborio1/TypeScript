@@ -4,6 +4,8 @@
 // ==================================================================
 // https://www.youtube.com/watch?v=BCg4U1FzODs&ab_channel=TraversyMedia
 // ==================================================================
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.arr1 = void 0;
 //  ADDITIONAL FEATURES TO JS INCL. STATIC TYPES
 //  USING TYPES IS COMPLETELY OPTIONAL
 //  COMPILES DOWN TO REGULAR JS
@@ -301,6 +303,22 @@ console.log(addition(1, 2));
 const log = (message) => {
     console.log(message);
 };
+// log("hello");   // STRING: OK
+// log(500);       // NUMBER: OK
+// log(true);      // ANYTHIG ELSE: ERROR !!!
+// ❗️❗️❗️ OPTIONAL / DEFAULT PARAMETERS: ❗️❗️❗️
+// OPTIONAL n
+const arr1 = (n) => {
+    // CHECK FOR n
+    if (!n)
+        return [];
+    let solution = [];
+    for (let i = 0; i < n; i++) {
+        solution.push(i);
+    }
+    return solution;
+};
+exports.arr1 = arr1;
 const user3 = {
     id: 1,
     name: "eddie"
