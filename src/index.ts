@@ -345,6 +345,12 @@ const strArr = word.split("");
 
 // EACH ARGUMENT WE PASS IN HAS TO BE A CERTAIN TYPE AS WELL AS THE RETURN VALUE
 
+// ❗️❗️❗️ BOTH WORK ❗️❗️❗️
+const wave = (str: string): Array<string> => { return ["hello"] }
+const wave2 = (str: string): string[] => { return ["hello"] }
+
+
+
 // FUNCTION DECLARATION:
 function addNum(x: number, y: number): number {
     return x + y

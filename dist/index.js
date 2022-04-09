@@ -287,6 +287,9 @@ const strArr = word.split("");
 // ===== FUNCTIONS =====
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // EACH ARGUMENT WE PASS IN HAS TO BE A CERTAIN TYPE AS WELL AS THE RETURN VALUE
+// ❗️❗️❗️ BOTH WORK ❗️❗️❗️
+const wave = (str) => { return ["hello"]; };
+const wave2 = (str) => { return ["hello"]; };
 // FUNCTION DECLARATION:
 function addNum(x, y) {
     return x + y;
