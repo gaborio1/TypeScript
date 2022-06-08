@@ -41,7 +41,7 @@ let arr: any[] = [1, true, "hello"]; // ARRAY CAN HOLD VALUES OF ANY TYPE
 let uniqueOdds = new Set<number>(); // SET OF NUMBERS
 // uniqueOdds.add("hello"); ==> ERROR: Argument of type 'string' is not assignable to parameter of type 'number'.ts(2345)
 
-// ❗️❗️❗️  CHECK FOR NULL OR EMPTY ARRY ORDER ❗️❗️❗️
+// 🟦🟦🟦 ❗️❗️❗️  CHECK FOR NULL OR EMPTY ARRY ORDER ❗️❗️❗️
 const sumArray = (array: number[] | null): number => {
     // ❗️❗️❗️ Object is possibly 'null'.ts(2531) ❗️❗️❗️
     // if (array.length <= 2 || array === null) return 0;
@@ -81,9 +81,9 @@ function sumArray3(a: number[]): number {
     return a === null
         ? 0
         : a
-              .sort((a, b) => a - b)
-              .slice(1, -1)
-              .reduce((a, b) => a + b, 0);
+            .sort((a, b) => a - b)
+            .slice(1, -1)
+            .reduce((a, b) => a + b, 0);
 }
 
 // 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩
@@ -140,7 +140,7 @@ enum direction2 {
 
 console.log(direction2.left); // left
 
-//  CODEWARS EXAMPLE: CHECK COUPON 7KYU
+//🟦🟦🟦  CODEWARS EXAMPLE: CHECK COUPON 7KYU
 enum months {
     January = 1,
     February,
@@ -158,7 +158,7 @@ enum months {
 const currentMonth: any = "February";
 const currMonthIdx: any = months[currentMonth]; // 2
 
-//  CODEWARS EXAMPLE:   SWITCH IT UP - number between 0-9, return it in words.
+//🟦🟦🟦  CODEWARS EXAMPLE:   SWITCH IT UP - number between 0-9, return it in words.
 function switchItUp2(intNumber: number): string {
     enum out {
         Zero,
@@ -176,7 +176,7 @@ function switchItUp2(intNumber: number): string {
     return out[intNumber];
 }
 
-// CODEWARS EXAMPLE: I LOVE U
+//🟦🟦🟦  CODEWARS EXAMPLE: I LOVE U
 const howMuchILoveYou = (petals: number): string => {
     enum phrases {
         "I love you" = 1,
@@ -261,6 +261,20 @@ const user2: User = {
     id: 1,
     name: "eddie",
 };
+
+
+// 🟦🟦🟦 CODEWARS type EXAMPLE FOR FUNCTION:
+type F10 = (num: number) => number;
+
+const part10: F10 = (num) => {
+    if (num < 5) return num * -1;
+    return 10 - num;
+}
+
+export const closestMultiple104: F10 = (num) => {
+    return num + part10(num % 10);
+};
+
 
 // 🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥🟥
 // ===== TYPE ASSERTION =====
@@ -451,7 +465,7 @@ interface MathFunc {
 const addition2: MathFunc = (x: number, y: number): number => x + y;
 const substraction: MathFunc = (x: number, y: number): number => x - y;
 
-// EXAMPLE:
+// 🟦🟦🟦 EXAMPLE:
 
 // SOURCE: https://www.reddit.com/r/typescript/comments/hm8jbv/how_to_define_an_interface_for_objects_with/fx4szci/
 // 🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰🀰
